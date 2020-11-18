@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotels</title>
+    <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="stylesheets/all.min.css">
+    <link rel="stylesheet" href="stylesheets/templatemo-style.css">
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+
+            <img class="logoimg" src="images/logo1.png"></img>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-1" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-2 active" aria-current="page" href="/hotels">Hotels</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-3" href="">Adventures</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-4" href="">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="tm-hero d-flex justify-content-center align-items-center" id="tm-video-container">
+        <video autoplay muted loop id="tm-video">
+            <source src="images/video.mp4" type="video/mp4">
+        </video>
+
+        <form class="d-flex position-absolute tm-search-form">
+            <input class="form-control tm-search-input" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success tm-search-btn" type="submit">
+
+            </button>
+        </form>
+    </div>
+
+    <div class="container-fluid tm-container-content tm-mt-60">
+        <div class="row mb-4">
+            <h2 class="col-6 tm-text-primary">
+                List of Hotels
+            </h2>
+
+        </div>
+
+        <div class="row tm-mb-90 tm-gallery">
+            <% Hotels.forEach(function(hotel){ %>
+            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+                <a href='/viewonehotel/<%=hotel._id %>'>
+                    <figure class="effect-ming tm-video-item">
+
+                        <img src="images/img/img-01.jpg" alt="Image" class="img-fluid">
+                        <figcaption class="d-flex align-items-center justify-content-center">
+                            <h2><%=hotel.name %></h2>
+
+                        </figcaption>
+
+                    </figure>
+                </a>
+                <div class="d-flex justify-content-between tm-text-gray">
+                    <span><%=hotel.name %></span>
+                    <span><%= hotel.address %></span>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+
+
+    </div> <!-- row -->
+
+
+
+
+</body>
+
+</html>
