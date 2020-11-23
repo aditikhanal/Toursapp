@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/all.min.css">
     <link rel="stylesheet" href="/stylesheets/templatemo-style.css">
+ 
+
+  
+    
+
+
 
 
 </head>
@@ -26,7 +32,7 @@
                         <a class="nav-link nav-link-1" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-2 active" href="videos.html">Videos</a>
+                        <a class="nav-link nav-link-2 active" href="videos.html">Hotels</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav-link-3" href="about.html">Adventures</a>
@@ -47,34 +53,64 @@
             <h2 class="col-12 tm-text-primary"><%= Hotel.name %></h2>
         </div>
         <div class="row tm-mb-90">
-            <div class="col-xl-8 col-lg-7 col-md-6 col-sm-12">
-                <video id="videoBG" poster="/images/poster.png" autoplay muted loop>
-                    <source src="/images/video.mp4" type="video/mp4">
-                </video>
+            <div class="col-xl-4 col-lg-7 col-md-6 col-sm-12">
+                <img class="sideimg" src="/images/hotels/<%= Hotel.filename %>"></img>
             </div>
-            <div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
+            <div class="col-xl-8 col-lg-5 col-md-6 col-sm-12">
                 <div class="tm-bg-gray tm-video-details">
 
-                   
+
                     <div class="mb-4 d-flex flex-wrap">
                         <div class="mr-4 mb-2">
 
                         </div>
                         <div class="mr-4 mb-2">
-                            <span class="tm-text-gray-dark"><%= Hotel.address %> </span>
-                            
-                        </div>
+                            <img class="icons" src="/images/icons/navigation-icon.png"></img>
+                            <span class="tm-text-black"><b><%= Hotel.address %></b> </span>
+                            <br><br>
+                            <p style="text-align:justify; color:black"><%= Hotel.description %></p>
+                            <span class="tm-text-black"><b>Facilities:</b> </span>
 
+                            <!-- <%if (Hotel.facilities["Swimming pool"]) { %>
+
+                            <div class="mr-4 mb-2">
+                                <img class="icons" src="/images/icons/swimming pool.png">
+                                <span class="tm-text-black">Swimming pool </span>
+                            </div>
+                            <% } %> -->
+
+                        </div>
+                        <% Object.keys(Hotel.facilities).forEach(function (item) { %>
+                        <%if (Hotel.facilities[item]) { %>
+
+                        <div class="mr-4 mb-2">
+                            <img class="icons" src="/images/icons/<%= item %>.png">
+                            <span class="tm-text-black"><%= item %></span>
+                        </div>
+                        <% } %>
+                        <% }); %>
+
+
+
+
+
+                    </div>
+
+                    <div class="col-sm-12">
+                    <label for="dateofbirth">Arrival date</label>
+                    <input type="date" name="dateofbirth" id="dateofbirth">
+                    
+                    
+                    <label for="dateofbirth">Departure date</label>
+                    <input type="date" name="dateofbirth" id="dateofbirth">
                     </div>
                     <div class="text-center mb-5">
                         <a href="#" class="btn btn-primary tm-btn-big">Book</a>
                     </div>
-
-
                 </div>
             </div>
         </div>
-
 </body>
+
 
 </html>
