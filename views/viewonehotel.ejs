@@ -8,10 +8,20 @@
     <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
     <link rel="stylesheet" href="/stylesheets/all.min.css">
     <link rel="stylesheet" href="/stylesheets/templatemo-style.css">
- 
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 
-  
-    
+
+
+
+
 
 
 
@@ -47,31 +57,31 @@
 
 
 
-
-    <div class="container-fluid tm-container-content tm-mt-60">
-        <div class="row mb-4">
-            <h2 class="col-12 tm-text-primary"><%= Hotel.name %></h2>
-        </div>
-        <div class="row tm-mb-90">
-            <div class="col-xl-4 col-lg-7 col-md-6 col-sm-12">
-                <img class="sideimg" src="/images/hotels/<%= Hotel.filename %>"></img>
+    <form method='post' action="/book">
+        <div class="container-fluid tm-container-content tm-mt-60">
+            <div class="row mb-4">
+                <h2 class="col-12 tm-text-primary" name="name"><%= Hotel.name %></h2>
             </div>
-            <div class="col-xl-8 col-lg-5 col-md-6 col-sm-12">
-                <div class="tm-bg-gray tm-video-details">
+            <div class="row tm-mb-90">
+                <div class="col-xl-4 col-lg-7 col-md-6 col-sm-12">
+                    <img class="sideimg" src="/images/hotels/<%= Hotel.filename %>"></img>
+                </div>
+                <div class="col-xl-8 col-lg-5 col-md-6 col-sm-12">
+                    <div class="tm-bg-gray tm-video-details">
 
 
-                    <div class="mb-4 d-flex flex-wrap">
-                        <div class="mr-4 mb-2">
+                        <div class="mb-4 d-flex flex-wrap">
+                            <div class="mr-4 mb-2">
 
-                        </div>
-                        <div class="mr-4 mb-2">
-                            <img class="icons" src="/images/icons/navigation-icon.png"></img>
-                            <span class="tm-text-black"><b><%= Hotel.address %></b> </span>
-                            <br><br>
-                            <p style="text-align:justify; color:black"><%= Hotel.description %></p>
-                            <span class="tm-text-black"><b>Facilities:</b> </span>
+                            </div>
+                            <div class="mr-4 mb-2">
+                                <img class="icons" src="/images/icons/navigation-icon.png"></img>
+                                <span class="tm-text-black" name="address"><b><%= Hotel.address %></b> </span>
+                                <br><br>
+                                <p style="text-align:justify; color:black"><%= Hotel.description %></p>
+                                <span class="tm-text-black"><b>Facilities:</b> </span>
 
-                            <!-- <%if (Hotel.facilities["Swimming pool"]) { %>
+                                <!-- <%if (Hotel.facilities["Swimming pool"]) { %>
 
                             <div class="mr-4 mb-2">
                                 <img class="icons" src="/images/icons/swimming pool.png">
@@ -79,37 +89,83 @@
                             </div>
                             <% } %> -->
 
+                            </div>
+                            <% Object.keys(Hotel.facilities).forEach(function (item) { %>
+                            <%if (Hotel.facilities[item]) { %>
+
+                            <div class="mr-4 mb-2">
+                                <img class="icons" src="/images/icons/<%= item %>.png">
+                                <span class="tm-text-black"><%= item %></span>
+                            </div>
+                            <% } %>
+                            <% }); %>
                         </div>
-                        <% Object.keys(Hotel.facilities).forEach(function (item) { %>
-                        <%if (Hotel.facilities[item]) { %>
 
-                        <div class="mr-4 mb-2">
-                            <img class="icons" src="/images/icons/<%= item %>.png">
-                            <span class="tm-text-black"><%= item %></span>
+                        <span class="tm-text-black"><b>Select your stay of duration:</b> </span>
+
+                        <div class="col-sm-12">
+                            <label for="dateofbirth">Arrival date</label>
+                            <input type="date" name="arrivalDate" id="dateofbirth">
+
+
+                            <label for="dateofbirth">Departure date</label>
+                            <input type="date" name="departureDate" id="dateofbirth">
                         </div>
-                        <% } %>
-                        <% }); %>
+                        <br>
+                        <span class="tm-text-black"><b>Select your Room Type:</b> </span>
+                        <br>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Room Type</th>
+                                    <th scope="col">Price Per Room</th>
+                                    <th scope="col">Select</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% Object.keys(Hotel.Roomtype).forEach(function (item) { %>
+                                <tr>
+                                    <td data-label="Room Type"><%= item %>
+
+                                    </td>
+                                    <td data-label="Price Per Room"><%= Hotel.Roomtype[item] %></td>
+
+                                    <td data-label="Select">
+                                        <div class="dropdown">
+                                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                                                id="dropdownMenuButton2" data-toggle="dropdown" aria-expanded="false">
+                                                Select
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-dark"
+                                                aria-labelledby="dropdownMenuButton2">
+                                                <% for(var i=1; i<= 10; i++) { %>
+                                                <li><a class="dropdown-item "><%= i %></a></li>
+
+                                                <% } %>
+                                            </ul>
+                                        </div>
+                                    </td>
+
+
+                                </tr>
+
+                                <% }); %>
+                            </tbody>
+                        </table>
+                        <br>
 
 
 
-
-
-                    </div>
-
-                    <div class="col-sm-12">
-                    <label for="dateofbirth">Arrival date</label>
-                    <input type="date" name="dateofbirth" id="dateofbirth">
-                    
-                    
-                    <label for="dateofbirth">Departure date</label>
-                    <input type="date" name="dateofbirth" id="dateofbirth">
-                    </div>
-                    <div class="text-center mb-5">
-                        <a href="#" class="btn btn-primary tm-btn-big">Book</a>
+                        <div class="text-center mb-5">
+                            <input type="submit" value="Book" class="btn btn-primary tm-btn-big"></input>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </form>
 </body>
 
 

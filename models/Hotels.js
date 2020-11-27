@@ -5,8 +5,10 @@ const HotelSchema = mongoose.Schema({
     address: String,
     filename: String,
     description: String,
+    stars:Number,
     facilities:Object,
-   
+    Roomtype:Object,
+    
 
 
 });
