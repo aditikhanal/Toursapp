@@ -35,10 +35,10 @@
                         <a class="nav-link nav-link-1" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-2 active" href="/hotels">Hotels</a>
+                        <a class="nav-link nav-link-2" href="/hotels">Hotels</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-3" href="/adventures">Adventures</a>
+                        <a class="nav-link nav-link-3 active" href="/adventures">Adventures</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav-link-4" href="contact.html">Contact</a>
@@ -50,11 +50,11 @@
 
 
 
-    <form name="myform" method='post' action="/book/<%= Hotel._id %>">
+    <form name="adventureform" method='post' action="/bookadventure/<%= Adventures._id %>">
 
         <div class="container-fluid tm-container-content tm-mt-60">
             <div class="row mb-4">
-                <h2 class="col-12 tm-text-primary" name="name"><%= Hotel.name %></h2>
+                <h2 class="col-12 tm-text-primary" name="name"><%= Adventures.name %></h2>
                
 
             </div>
@@ -63,7 +63,7 @@
             <div class="row tm-mb-90">
 
                 <div class="col-xl-4 col-lg-7 col-md-6 col-sm-12">
-                    <img class="sideimg" src="/images/hotels/<%= Hotel.filename %>"></img>
+                    <img class="sideimg" src="/images/adventures/<%= Adventures.filename %>"></img>
                 </div>
                 <div class="col-xl-8 col-lg-5 col-md-6 col-sm-12">
                     <div class="tm-bg-gray tm-video-details">
@@ -75,57 +75,27 @@
                             </div>
                             <div class="mr-4 mb-2">
                                 <img class="icons" src="/images/icons/navigation-icon.png"></img>
-                                <span class="tm-text-black" type="submit" name="address"><b><%= Hotel.address %></b>
+                                <span class="tm-text-black" type="submit" name="address"><b><%= Adventures.address %></b>
                                 </span>
-                                <br>
-                                <% for(var i=1; i<= Hotel.stars; i++) { %>
-                                    <img style="width:2%" src="/images/icons/star.png">
-                    
-                                    <% } %>   
+                                
                                 <br><br>
-                                <p style="text-align:justify; color:black"><%= Hotel.description %></p>
-                                <span class="tm-text-black"><b>Facilities:</b> </span>
-
-                                <!-- <%if (Hotel.facilities["Swimming pool"]) { %>
-
-                            <div class="mr-4 mb-2">
-                                <img class="icons" src="/images/icons/swimming pool.png">
-                                <span class="tm-text-black">Swimming pool </span>
-                            </div>
-                            <% } %> -->
-
-                            </div>
-                            <% Object.keys(Hotel.facilities).forEach(function (item) { %>
-                            <%if (Hotel.facilities[item]) { %>
-
-                            <div class="mr-4 mb-2">
-                                <img class="icons" src="/images/icons/<%= item %>.png">
-                                <span class="tm-text-black"><%= item %></span>
-                            </div>
-                            <% } %>
-                            <% }); %>
-                        </div>
-
-                        <span class="tm-text-black"><b>Select your stay of duration:</b> </span>
+                                <p style="text-align:justify; color:black"><%= Adventures.description %></p>
 
                         <div class="col-sm-12">
                             <label for="dateofbirth">Arrival date</label>
                             <input type="date" name="arrivalDate" id="dateofbirth" required>
 
-
-                            <label for="dateofbirth">Departure date</label>
-                            <input type="date" name="departureDate" id="dateofbirth" required>
                         </div>
                         <br>
-                        <span class="tm-text-black"><b>Select your Room Type:</b> </span>
+                        <span class="tm-text-black"><b>Select your Package:</b> </span>
                         <br>
                       
                         <table>
                             <thead>
                                 <tr>
-                                    <th scope="col" style="width:60%">Room Type</th>
-                                    <th scope="col">Select</th>
+                                    <th scope="col" style="width:60%">No of people</th>
                                     <th scope="col">Price</th>
+                                    
 
 
                                 </tr>
@@ -133,32 +103,27 @@
                             <tbody>
                                 
                                 <tr>
-                                    <td data-label="Room Type">
-                                        
-                                        <select name="Roomtype" id="Roomtype" class="grid-10" onChange="calculatePrice()">
-                                            <% Object.keys(Hotel.Roomtype).forEach(function (rooms) { %>
-                                            <option id="selectedroomtype" value="<%= rooms %>" selected><%= rooms %></option>
-                                         
-                                          
-                                            <% }); %>
-                                        </select>
-
-                                    </td>
+                                   
                                     
 
-                                    <td data-label="Select">
-                                        <select name="numberofrooms" id="categories" class="grid-10" onChange="calculatePrice()">
+                                    <td data-label="No of people">
+                                        <select name="numberofpeople" id="noofpeople" class="grid-10" onChange="calculatefinalPrice()">
                                             <% for(var i=0; i<= 10; i++) { %>
-                                            <option id ="selectednumber" value="<%= i %>" selected><%= i %></option>
+                                            <option  value="<%= i %>" selected><%= i %></option>
                                             <% } %>
                                      </select>
                                     </td>
-                                    <td data-label="Price Per Room" >
+                                   
+
+                                        <td data-label="Room Type">
+                                        
+                                         
+                                                <text id="finalprice"></text>
+                                               <script> var x="<%= Adventures.price %>" </script>
+    
+                                        </td>
                                    
                       
-                                        <text >--</text>
- 
-                                     </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -225,29 +190,29 @@
     <script>
                                                  
 
-        function calculatePrice(myform){
+        function calculatefinalPrice(adventureform){
            
-           //Get selected data  
-           var elt = document.getElementById("Roomtype");
-           var memory = elt.options[elt.selectedIndex].value;
+        //    Get selected data  
+        
+         
 
 
-           var elt = document.getElementById("categories");
-           var hdd = elt.options[elt.selectedIndex].value;
+           var y = document.getElementById("noofpeople");
+           var z = y.options[y.selectedIndex].value;
            
            // var elt = document.getElementById("networkItem");
            // var network = elt.options[elt.selectedIndex].value;
            
            //convert data to integers
-           memory = parseInt(memory);
-           hdd = parseInt(hdd);
+          x = parseInt(x);
+           z = parseInt(z);
            
            
            //calculate total value  
-           var total = memory*hdd
+          var total = x*z
            
-           //print value to  PicExtPrice 
-           document.getElementById("priceofhotel").innerHTML=total;
+        //    print value to  PicExtPrice 
+           document.getElementById("finalprice").innerHTML=total;
 
            }
     </script>

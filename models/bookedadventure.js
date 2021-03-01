@@ -3,13 +3,10 @@ var mongoose = require('mongoose')
 const BookingSchema = mongoose.Schema({
     name: String,
     address: String,
-    roomtype:String,
-    numberofrooms:Number,
     arrivalDate:{type:Date,
     required:[true,"Please provide arrival date"],},
-    departureDate:Date,
-    priceperroom:Number,
-    total:Number,
+    price:Number,
+    numberofpeople:Number,
     username:String,
     useremail:String,
     usercontact:Number,
@@ -19,4 +16,4 @@ const BookingSchema = mongoose.Schema({
        } 
 });
 
-module.exports = mongoose.model('booking', BookingSchema)
+module.exports = mongoose.model('bookedadventure', BookingSchema)

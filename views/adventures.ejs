@@ -28,10 +28,10 @@
                         <a class="nav-link nav-link-1" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-2 active" aria-current="page" href="/hotels">Hotels</a>
+                        <a class="nav-link nav-link-2" href="/hotels">Hotels</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link nav-link-3" href="/adventures">Adventures</a>
+                        <a class="nav-link nav-link-3 active"  aria-current="page" href="/adventures">Adventures</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link nav-link-4" href="">Contact</a>
@@ -57,28 +57,28 @@
     <div class="container-fluid tm-container-content tm-mt-60">
         <div class="row mb-4">
             <h2 class="col-6 tm-text-primary">
-                List of Hotels
+                List of Adventures
             </h2>
 
         </div>
 
         <div class="row tm-mb-90 tm-gallery">
-            <% Hotels.forEach(function(hotel){ %>
+            <% Adventures.forEach(function(adventures){ %>
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
-                <a href='/viewonehotel/<%=hotel._id %>'>
+                <a href='/viewoneadventure/<%=adventures._id %>'>
                     <figure class="effect-ming tm-video-item">
 
-                        <img src="images/hotels/<%= hotel.filename %>" alt="Image" class="img-fluid">
+                        <img src="images/adventures/<%= adventures.filename %>" alt="Image" class="img-fluid">
                         <figcaption class="d-flex align-items-center justify-content-center">
-                            <h2><%=hotel.name %></h2>
+                            <h2><%=adventures.name %></h2>
 
                         </figcaption>
 
                     </figure>
                 </a>
                 <div class="d-flex justify-content-between tm-text-gray">
-                    <span><%=hotel.name %></span>
-                    <span><%= hotel.address %></span>
+                    <span><%=adventures.name %></span>
+                    <span><%= adventures.address %></span>
                 </div>
             </div>
             <% }) %>
